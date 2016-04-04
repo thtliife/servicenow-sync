@@ -20,3 +20,11 @@ class ServicenowSyncView
 
   getElement: ->
     @element
+
+  setCount: (count) ->
+    displayText = "This document has #{count} words."
+    @element.children[0].textContent = displayText
+
+  contentToModal: (content) ->
+    displayText = content
+    @element.children[0].textContent = displayText

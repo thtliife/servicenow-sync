@@ -3,16 +3,14 @@
   "main": "./lib/servicenow-sync",
   "version": "0.0.0",
   "description": "A short description of your package",
-  "keywords": [
-  ],
+  "keywords": [],
   "activationCommands": {
-    "atom-workspace": "servicenow-sync:toggle"
+    "atom-workspace": "servicenow-sync:syncFileExists"
   },
-  "repository": "https://github.com/atom/servicenow-sync",
+  "repository": "https://github.com/thtliife/servicenow-sync.git",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
