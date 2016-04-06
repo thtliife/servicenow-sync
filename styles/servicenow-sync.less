@@ -3,21 +3,86 @@
 // See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
 // for a full listing of what's available.
 @import "ui-variables";
-
 .servicenow-sync {
+  h2 {
+    color: @text-color-info;
+    text-align: center;
+  }
+  h3 {
+    color: @text-color-info;
+    text-align: center;
+  }
+  p {
+    margin: 1.2em;
+  }
+  em {
+    font-size: 0.8em;
+    color: @text-color-warning;
+  }
+  label {
+    color: @text-color-highlight;
+  }
+  button {
+    width: 8em;
+    text-align: center;
+    margin: .5em;
+  }
+  button.disabled:hover{
+    background-color: @button-background-color;
+  }
+
+  .align-right {
+    text-align: right;
+  }
+  .full-width {
+    display: inline-flex;
+    width: 100%;
+  }
+  .quarter-width {
+    width: 25%;
+  }
+  .half-width {
+    width: 50%;
+  }
+  .three-quarter-width {
+    width: 75%;
+  }
+
+  .info-panel, .creds-panel {
+    background: lighten(@overlay-background-color, 5%);
+    border: 1px solid @base-border-color;
+    border-radius: @component-border-radius;
+    margin-bottom: 0.8em;
+    .info-div, .creds-div {
+      margin: 0.3em;
+      .info-label, .creds-label {
+        width: 9em;
+        margin-left: 0.8em;
+        margin-right: 0.8em;
+      }
+      .info-result {
+        color: @text-color-info;
+        margin-right: 1.2em;
+        margin-bottom: 0.8em;
+      }
+      .hidden {
+        display: none;
+      }
+      .creds-label {
+        padding-top: .3em;
+      }
+      .occlude {
+        -webkit-text-security: disc;
+      }
+      // .placeholder
+      span {
+        width: 100%;
+      }
+      select {
+        background: lighten(@overlay-background-color, 70%);
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
 }
-
-
-// region This is some stuff
-//
-//
-//
-//
-//
-// endregion This is some stuff
-
-// <editor-fold
-//
-// ls
-//
-// </editor-fold>

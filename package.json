@@ -5,7 +5,7 @@
   "description": "A short description of your package",
   "keywords": [],
   "activationCommands": {
-    "atom-workspace": "servicenow-sync:syncFileExists"
+    "atom-workspace": "servicenow-sync:toggle"
   },
   "repository": "https://github.com/thtliife/servicenow-sync.git",
   "license": "MIT",
