@@ -48,7 +48,7 @@ module.exports = ServicenowSync =
 
     # console.debug(process.env)
     # console.info(ServicenowSync.syncFileExists())
-    ServicenowSync.getEnv('http_proxy',(envVar) => ServicenowSync.sync(envVar))
+    ServicenowSync.getEnv('http_proxy', (envVar) => ServicenowSync.sync(envVar))
 
 
   # region Utility Functions
@@ -60,7 +60,7 @@ module.exports = ServicenowSync =
     editor = atom.workspace.getActiveTextEditor()
     thisFilePath = editor.getPath()
     syncFilePath = thisFilePath + postFix
-    if !fs.existsSync(syncFilePath) then false else true
+    if ! fs.existsSync(syncFilePath) then false else true
 
   getEnv: (envVar, callback) ->
     ChildProcess = require 'child_process'

@@ -2,7 +2,7 @@
 //
 // See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
 // for a full listing of what's available.
-@import "ui-variables";
+@import 'ui-variables';
 .servicenow-sync {
   h2 {
     color: @text-color-info;
@@ -25,12 +25,11 @@
   button {
     width: 8em;
     text-align: center;
-    margin: .5em;
+    margin: 0.5em;
   }
-  button.disabled:hover{
+  button.disabled:hover {
     background-color: @button-background-color;
   }
-
   .align-right {
     text-align: right;
   }
@@ -47,15 +46,14 @@
   .three-quarter-width {
     width: 75%;
   }
-
-  .info-panel, .creds-panel {
+  .creds-panel, .info-panel {
     background: lighten(@overlay-background-color, 5%);
     border: 1px solid @base-border-color;
     border-radius: @component-border-radius;
     margin-bottom: 0.8em;
-    .info-div, .creds-div {
+    .creds-div, .info-div {
       margin: 0.3em;
-      .info-label, .creds-label {
+      .creds-label, .info-label {
         width: 9em;
         margin-left: 0.8em;
         margin-right: 0.8em;
@@ -69,7 +67,7 @@
         display: none;
       }
       .creds-label {
-        padding-top: .3em;
+        padding-top: 0.3em;
       }
       .occlude {
         -webkit-text-security: disc;
