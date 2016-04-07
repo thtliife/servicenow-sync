@@ -2,9 +2,9 @@
 
 Atom integration with ServiceNow (Eureka & above)
 
-  JSONv2 Support
-  Enhanced conflict detection between Server and local copy
-  Enhanced messages to the end user on error
+* JSONv2 Support
+* Enhanced conflict detection between Server and local copy
+* Enhanced messages to the end user on error
 
 ![servicenow-sync configuration pane](http://i.imgur.com/zatN393.png =500x)
 
