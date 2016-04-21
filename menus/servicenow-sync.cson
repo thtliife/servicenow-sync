@@ -2,19 +2,23 @@
 'context-menu':
   'atom-text-editor': [
     {
-      'label': 'Toggle servicenow-sync'
-      'command': 'servicenow-sync:toggle'
+      'label': 'Configure for ServiceNow'
+      'command': 'servicenow-sync:configure-file'
     }
   ]
 'menu': [
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'servicenow-sync'
+      'label': 'Servicenow Sync'
       'submenu': [
         {
-          'label': 'Toggle'
-          'command': 'servicenow-sync:toggle'
+          'label': 'Configure File'
+          'command': 'servicenow-sync:configure-file'
+        }
+        {
+          'label': 'Sync File to ServiceNow'
+          'command': 'servicenow-sync:sync'
         }
       ]
     ]

@@ -1,0 +1,45 @@
+sys_ui_page: [
+  { field: 'html', displayName: 'HTML' }
+  { field: 'client_script', displayName: 'Client Script'}
+  { field: 'processing_script', displayName: 'Processing Script'}
+]
+sys_ui_macro: [
+  { field: 'xml', displayName: 'XML' }
+]
+sys_ui_script: [
+  { field: 'script', displayName: 'Script' }
+]
+sys_script_include: [
+  { field: 'script', displayName: 'Script' }
+]
+content_css: [
+  { field: 'style', displayName: 'Style' }
+]
+content_block_programmatic: [
+  { field: 'programmatic_content', displayName: 'Dynamic content' }
+]
+content_block_detail: [
+  { field: 'condition', displayName: 'Condition' }
+]
+content_type: [
+  { field: 'detail', displayName: 'Detail Template' }
+  { field: 'summary', displayName: 'Summary Template'}
+]
+catalog_script_client: [
+  { field: 'script', displayName: 'Script' }
+]
+sys_ui_message: [
+  { field: 'message', displayName: 'Message' }
+]
+sysevent_script_action: [
+  { field: 'script', displayName: 'Script' }
+]
+sys_script_client: [
+  { field: 'script', displayName: 'Script' }
+]
+sys_script_validator: [
+  { field: 'validator', displayName: 'Validator' }
+]
+sys_processor: [
+  { field: 'script', displayName: 'Script' }
+]

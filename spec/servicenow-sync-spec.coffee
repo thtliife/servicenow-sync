@@ -1,4 +1,5 @@
 ServicenowSync = require '../lib/servicenow-sync'
+utils = require '../lib/modules/servicenow-sync-utils'
 
 # Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
 #
@@ -16,11 +17,11 @@ describe "ServicenowSync", ->
     it "hides and shows the modal panel", ->
       # Before the activation event the view is not on the DOM, and no panel
       # has been created
-      expect(workspaceElement.querySelector('.servicenow-sync')).not.toExist()
+      # expect(workspaceElement.querySelector('.servicenow-sync')).not.toExist()
 
       # This is an activation event, triggering it will cause the package to be
       # activated.
-      atom.commands.dispatch workspaceElement, 'servicenow-sync:toggle'
+      atom.commands.dispatch workspaceElement, 'servicenow-sync:configure-file'
 
       waitsForPromise ->
         activationPromise
@@ -32,9 +33,9 @@ describe "ServicenowSync", ->
         expect(servicenowSyncElement).toExist()
 
         servicenowSyncPanel = atom.workspace.panelForItem(servicenowSyncElement)
-        expect(servicenowSyncPanel.isVisible()).toBe true
-        atom.commands.dispatch workspaceElement, 'servicenow-sync:toggle'
         expect(servicenowSyncPanel.isVisible()).toBe false
+        atom.commands.dispatch workspaceElement, 'servicenow-sync:toggle'
+        expect(servicenowSyncPanel.isVisible()).toBe true
 
     it "hides and shows the view", ->
       # This test shows you an integration test testing at the view level.

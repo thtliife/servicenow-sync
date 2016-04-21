@@ -1,3 +1,7 @@
-## 0.1.0 - First Release
-* Every feature added
-* Every bug fixed
+# Servicenow Sync
+
+## Changelog
+
+### 0.1.0 - Initial Release *2016-04-21*
+
+*   Every feature added

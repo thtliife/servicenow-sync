@@ -1,88 +1,130 @@
-ServicenowSyncView = require './servicenow-sync-view'
+ServicenowSyncProgress = require './views/servicenow-sync-progress'
+ServicenowSyncSettingsPanel = require './views/servicenow-sync-settings-panel'
+utils = require './modules/servicenow-sync-utils'
+
 {CompositeDisposable} = require 'atom'
 
-module.exports = ServicenowSync =
-  servicenowSyncView: null
-  modalPanel: null
-  subscriptions: null
-  #config:
+userLanguage = ->
+  if lang.hasOwnProperty( process.env.LANG.split('.')[0] )
+    process.env.LANG.split('.')[0]
+  else
+    'en_US'
 
+module.exports = ServicenowSync =
+  servicenowSyncSettingsPanel: null
+  servicenowSyncProgress: null
+  settingsPanel: null
+  progressPanel: null
+  subscriptions: new CompositeDisposable
+  settingsPanelSubs: new CompositeDisposable
+  onSaveSubs: new CompositeDisposable
+  configSubs: new CompositeDisposable
+  progressText: null
+  editor: null
+  remoteFile: null
+  snSettings:
+    instance: null
+    table: null
+    sysId: null
+    field: null
+    name: null
+    description: null
+    creds:
+      username: null
+      password: null
+    checksum: null
+
+  config:
+    pushOnSave:
+      title: 'Sync on save'
+      description: 'Selecting this option will cause the plugin to upload directly.'
+      type: 'boolean'
+      default: false
+      order: 0
+    createGitIgnoreFile:
+      title: 'Create .gitignore'
+      description: 'Create a .gitignore file in the files path, to ignore the .snsync.cson file. (Recommended as Servicenow credentials are stored here)'
+      type: 'boolean'
+      default: true
+      order: 1
+    debug:
+      title: 'Debug mode'
+      description: 'Selecting debug mode will cause the plugin to output operations to console.'
+      type: 'boolean'
+      default: false
+      order: 2
 
   activate: (state) ->
-    # console.log 'Loaded Servicenow Sync Package'
-    @servicenowSyncView = new ServicenowSyncView(state.servicenowSyncViewState)
-    @modalPanel = atom.workspace.addModalPanel(item: @servicenowSyncView.getElement(), visible: false)
 
-    # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
-    @subscriptions = new CompositeDisposable
+    @servicenowSyncSettingsPanel = new ServicenowSyncSettingsPanel(state.servicenowSyncSettingsPanelState, ServicenowSync)
+    @servicenowSyncProgress = new ServicenowSyncProgress(state.servicenowSyncProgressState, ServicenowSync)
+    @settingsPanel = atom.workspace.addModalPanel(item: @servicenowSyncSettingsPanel.getElement(), visible: false)
+    @progressPanel = atom.workspace.addModalPanel(item: @servicenowSyncProgress.getElement(), visible: false)
 
-    # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'servicenow-sync:toggle': => @toggle()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'servicenow-sync:syncFileExists': => @fileInfo()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'servicenow-sync:configure-file': => @configPanel()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'servicenow-sync:sync': => @sync()
 
-
+    utils.actions.configurePushOnSave ServicenowSync
+    utils.actions.configureEnvironment()
 
   deactivate: ->
-    @modalPanel.destroy()
+    @settingsPanel.destroy()
+    @progressPanel.destroy()
+
     @subscriptions.dispose()
-    @servicenowSyncView.destroy()
+    @settingsPanelSubs.dispose()
+    @onSaveSubs?.dispose()
 
   serialize: ->
-    servicenowSyncViewState: @servicenowSyncView.serialize()
+    servicenowSyncSettingsPanelState: @servicenowSyncSettingsPanel.serialize()
 
-  toggle: ->
-    # console.log 'ServicenowSync was toggled!'
+  sync: (initiatedBySave)->
 
-    if @modalPanel.isVisible()
-      @modalPanel.hide()
+    if !utils.actions.syncFileExists()
+      utils.actions.confirmNewSNFile ServicenowSync
     else
+      @editor = atom.workspace.getActiveTextEditor()
+      @snSettings = utils.actions.getFileSettings ServicenowSync
+      if !@snSettings.syncEnabled
+        utils.logger.warn  '[Servicenow Sync] Sync is disabled for this file. Run servicenow-sync:configure-file from the command pallet to change this files config'
+        utils.notify.warning 'Sync is disabled for this file. <br />Run <strong>servicenow-sync:configure-file</strong> from the command pallet to change this files config', dismissable: false if !initiatedBySave
+        return
+      utils.actions.configureEnvironment ['http_proxy', 'https_proxy', 'HTTP_PROXY', 'HTTPS_PROXY', 'npm_config_proxy','npm_config_https_proxy','no_proxy','NO_PROXY','all_proxy','ALL_PROXY'], ->
+        if ServicenowSync.snSettings?.sysId?.length > 0
+          utils.actions.getRemoteFile(ServicenowSync, ServicenowSync.servicenowSyncProgress, false, true, (response) ->
+            return if response.length == 0
+            remoteContent = response[ServicenowSync.snSettings.field]?.replace(/\r\n/g, '\n').replace(/\r/g,'\n')
+            remoteChecksum = utils.actions.checkSum remoteContent
+            localChecksum = ServicenowSync.snSettings.checksum
+            if remoteChecksum != localChecksum
+              if !utils.actions.confirmFileDiff ServicenowSync
+                utils.notify.warning 'Sync to service now cancelled by user', dismissable: false
+                return
+
+            ServicenowSync.push()
+          )
+        else
+          ServicenowSync.push()
+
+
+  push: () ->
+    fileSettings = utils.actions.getFileSettings ServicenowSync
+    if fileSettings.syncEnabled && fileSettings.instance && fileSettings.table && fileSettings.field && fileSettings.creds.username && fileSettings.creds.password
       editor = atom.workspace.getActiveTextEditor()
-      @modalPanel.show()
+      content = editor.buffer.getText()
+      utils.actions.configureEnvironment [], ->
+        utils.actions.putFile(ServicenowSync, ServicenowSync.servicenowSyncProgress, content, true, (response) ->
+          remoteContent = response[fileSettings.field].replace(/\r\n/g, '\n').replace(/\r/g,'\n')
+          remoteChecksum = utils.actions.checkSum remoteContent
+          ServicenowSync.snSettings.checksum = remoteChecksum
+          ServicenowSync.snSettings.sysId = response.sys_id if !ServicenowSync.snSettings?.sysId?.length > 0
+          utils.actions.setFileSettings ServicenowSync.snSettings
 
-  sync: (proxyAddr) ->
-    useProxy = if proxyAddr then true else false
-    console.info(useProxy)
+          utils.logger.info '[Servicenow Sync] push response:'
+          utils.logger.debug(response)
+        )
 
-  fileInfo: ->
-    # alert(ServicenowSync.syncFileExists())
+  configPanel: ->
 
-    # console.debug(process.env)
-    # console.info(ServicenowSync.syncFileExists())
-    ServicenowSync.getEnv('http_proxy', (envVar) => ServicenowSync.sync(envVar))
-
-
-  # region Utility Functions
-  syncFileExists: ->
-    require('process')
-
-    postFix = '.snsync.cson'
-    fs = require('fs')
-    editor = atom.workspace.getActiveTextEditor()
-    thisFilePath = editor.getPath()
-    syncFilePath = thisFilePath + postFix
-    if ! fs.existsSync(syncFilePath) then false else true
-
-  getEnv: (envVar, callback) ->
-    ChildProcess = require 'child_process'
-    # I tried using ChildProcess.execFile but there is no way to set detached and this causes the child shell to lock up. This command runs an interactive login shell and executes the export command to get a list of environment variables. We then use these to run the script:
-    child = ChildProcess.spawn process.env.SHELL, ['-ilc', 'printenv'],
-      # This is essential for interactive shells, otherwise it never finishes:
-      detached: true,
-      # We don't care about stdin, stderr can go out the usual way:
-      stdio: ['ignore', 'pipe', process.stderr]
-
-    # We buffer stdout:
-    buffer = ''
-    child.stdout.on 'data', (data) -> buffer += data
-    out = null
-    # When the process finishes, extract the environment variables and pass them to the callback:
-    child.on 'close', (code, signal) ->
-      for definition in buffer.split('\n')
-        [key, value] = definition.split('=', 2)
-        # console.warn(key)
-        out = value if key == envVar
-          # out = value
-        # value
-      callback(out)
-
-  # endregion Utility Functions
+    # Show the file settings panel
+    utils.views.settingsPanel.toggle ServicenowSync
