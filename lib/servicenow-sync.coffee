@@ -63,6 +63,7 @@ module.exports = ServicenowSync =
 
     @subscriptions.add atom.commands.add 'atom-workspace', 'servicenow-sync:configure-file': => @configPanel()
     @subscriptions.add atom.commands.add 'atom-workspace', 'servicenow-sync:sync': => @sync()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'servicenow-sync:view-remote': => @viewRemote()
 
     utils.actions.configurePushOnSave ServicenowSync
     utils.actions.configureEnvironment()
@@ -128,3 +129,6 @@ module.exports = ServicenowSync =
 
     # Show the file settings panel
     utils.views.settingsPanel.toggle ServicenowSync
+
+  viewRemote: ->
+    utils.actions.viewRemoteFile ServicenowSync

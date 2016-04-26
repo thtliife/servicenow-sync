@@ -1,3 +1,4 @@
 'atom-workspace':
   'ctrl-alt-k': 'servicenow-sync:configure-file'
   'ctrl-alt-l': 'servicenow-sync:sync'
+  'ctrl-alt-v': 'servicenow-sync:view-remote'

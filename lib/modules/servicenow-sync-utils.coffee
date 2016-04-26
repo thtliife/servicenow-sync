@@ -669,7 +669,7 @@ module.exports = utils =
           Yes: -> return true
           No: -> return false
 
-    configurePushOnSave: (caller)->
+    configurePushOnSave: (caller) ->
       caller.onSaveSubs ?= new CompositeDisposable
       caller.configSubs ?= new CompositeDisposable
 
@@ -682,6 +682,21 @@ module.exports = utils =
         editorSubs.add editor.onDidDestroy ->
           @editorSubs.dispose()
           @editorSubs.clear()
+
+    viewRemoteFile: (caller) ->
+      if !utils.actions.syncFileExists()
+        utils.actions.confirmNewSNFile caller
+      else
+        # @editor = atom.workspace.getActiveTextEditor()
+        fileSettings = utils.actions.getFileSettings caller
+
+        if fileSettings?.sysId?.length > 0 and fileSettings?.instance?.length > 0 and fileSettings?.table?.length > 0
+          uri = 'https://' + fileSettings?.instance + '.service-now.com/nav_to.do?uri=' + fileSettings?.table + '.do?sys_id=' + fileSettings?.sysId
+          shell = require 'shell'
+          shell.openExternal uri
+        else
+          utils.logger.warn '[Servicenow Sync] This file is missing configuration items. Run servicenow-sync:configure-file from the command pallet to change this files config'
+          utils.notify.warning 'This file is missing configuration items. <br />Run <strong>servicenow-sync:configure-file</strong> from the command pallet to change this files config'
 
   logger:
     debug: (msg) -> console.debug msg if atom.config.get('servicenow-sync').debug
