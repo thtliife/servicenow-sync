@@ -49,7 +49,7 @@ If checked, the package will output extra debugging information to the console.
 ### Configure your file for Servicenow Sync
 
 Open the [Command Pallette](https://github.com/atom/command-palette), and type
-`configure file` (or `snscf` for faster use thanks to Atoms awesome
+`Servicenow Sync: Configure File` (or `snscf` for faster use thanks to Atoms awesome
 fuzzy matching)
 
 You can also use the default key map of `ctrl`+`alt`+`k`
@@ -67,15 +67,27 @@ pushing to ServiceNow for the first time.
 ### Sync the contents of your editor to ServiceNow
 
 Open the [Command Pallette](https://github.com/atom/command-palette), and type
-`Servicenow Sync: sync` (or the fuzzy matched `sn:sync`)
+`Servicenow Sync: Sync` (or the fuzzy matched `sn:sync`)
 
 You can also use the default key map of `ctrl`+`alt`+`l`
 
 *Alternatively, you may just enable the `Sync on save` setting which will push
 your editors content to ServiceNow on every save, as long as you have previously
-configured the file for Servicenow Sync*
+configured the file for Servicenow Sync.*
 
 ![Sync to ServiceNow](http://i.imgur.com/TjMcjxP.gif)
+
+### View the current file in your ServiceNow instance
+
+Open the [Command Pallette](https://github.com/atom/command-palette), and type
+`Servicenow Sync: View Remote` (or the fuzzy matched `ssvr`)
+
+You can also use the default key map of `ctrl`+`alt`+`v`
+
+This will open your the currently focused file in the configured ServiceNow
+instance with your default browser. This obviously requires that the file has
+already been configured for Servicenow sync with the `Servicenow Sync: Sync`
+command.
 
 ## Further information
 
