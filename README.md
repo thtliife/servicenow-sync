@@ -56,8 +56,8 @@ If checked, the package will output extra debugging information to the console.
 ### Configure your file for Servicenow Sync
 
 Open the [Command Pallette](https://github.com/atom/command-palette), and type
-`Servicenow Sync: Configure File` (or `snscf` for faster use thanks to Atoms awesome
-fuzzy matching)
+`Servicenow Sync: Configure File` (or `snscf` for faster use thanks to Atoms
+awesome fuzzy matching)
 
 You can also use the default key map of `ctrl`+`alt`+`k`
 
@@ -93,8 +93,8 @@ You can also use the default key map of `ctrl`+`alt`+`v`
 
 This will open your the currently focused file in the configured ServiceNow
 instance with your default browser. This obviously requires that the file has
-already been configured for Servicenow sync with the `Servicenow Sync: Configure File`
-command.
+already been configured for Servicenow sync with the
+`Servicenow Sync: Configure File` command.
 
 ## Further information
 
