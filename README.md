@@ -2,6 +2,13 @@
 
 *Atom integration with [ServiceNow](http://www.servicenow.com) (Eureka & above)*
 
+[Servicenow Sync on atom.io](https://atom.io/packages/servicenow-sync)
+
+[![Wercker](https://img.shields.io/wercker/ci/wercker/docs.svg?maxAge=2592000)](https://github.com/thtliife/servicenow-sync)
+[![GitHub issues](https://img.shields.io/github/issues/thtliife/servicenow-sync.svg)](https://github.com/thtliife/servicenow-sync/issues)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/thtliife/servicenow-sync/master/LICENSE.md)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/thtliife/servicenow-sync.svg?style=social)](https://twitter.com/intent/tweet?text=Check out @thtliife%27s servicenow-sync package, for githubs awesome atom text editor!:&url=https%3A%2F%2Fatom.io%2Fpackages%2Fservicenow-sync)
+
 Servicenow Sync is a package primarily for ServiceNow developers.
 Servicenow Sync enables direct uploading of files to your ServiceNow instance.
 
@@ -86,7 +93,7 @@ You can also use the default key map of `ctrl`+`alt`+`v`
 
 This will open your the currently focused file in the configured ServiceNow
 instance with your default browser. This obviously requires that the file has
-already been configured for Servicenow sync with the `Servicenow Sync: Sync`
+already been configured for Servicenow sync with the `Servicenow Sync: Configure File`
 command.
 
 ## Further information
