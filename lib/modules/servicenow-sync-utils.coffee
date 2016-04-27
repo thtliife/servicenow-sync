@@ -266,7 +266,7 @@ module.exports = utils =
                   caller.snSettings.name = response.name
                   caller.snSettings.description = response.description
                   caller.servicenowSyncSettingsPanel.recordNameInputModel.setText(response.name)
-                  caller.servicenowSyncSettingsPanel.recordDescriptionInputModel.setText(response.description)
+                  caller.servicenowSyncSettingsPanel.recordDescriptionInputModel.setText(response.description) if response.description
                   caller.servicenowSyncSettingsPanel.getSpinner.classList.remove('icon-spinner')
                   caller.servicenowSyncSettingsPanel.getButton.classList.add('icon-arrow-down')
                   editor = atom.workspace.getActiveTextEditor()

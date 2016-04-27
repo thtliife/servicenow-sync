@@ -2,7 +2,20 @@
 
 ## Changelog
 
-### 0.2.0 - New Feature *2016-04-27*
+### 0.2.3 - *2016-04-27*
+
+*   Fixed error in "Get Info" function in configure panel when no description
+    exists for a remote file
+
+### 0.2.2 - *2016-04-27*
+
+*   Fixed Readme formatting
+
+### 0.2.1 - *2016-04-27*
+
+*   Updated Readme
+
+### 0.2.0 - *2016-04-27*
 
 *   Added ability to view the remote file in users browser
 
