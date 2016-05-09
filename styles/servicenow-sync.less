@@ -15,7 +15,32 @@ atom-panel.modal:after {
   backface-visibility: hidden; // fixes scrollbar on retina screens
   -webkit-animation: overlay-fade 0.1s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
+
 .servicenow-sync {
+  atom-text-editor[mini]::shadow .text.plain {
+    color: @text-color;
+
+  }
+  atom-text-editor[mini]::shadow .placeholder-text{
+    color: @text-color-subtle;
+    }
+  // MINI EDITOR - SMALL
+  .editor.input.mini {
+    font-size: 1.2em;
+    height: 1.8em;
+    vertical-align: middle;
+    margin-top: 0.1em;
+    padding: 0;
+    padding-left: 0.5em;
+    background: @app-background-color;
+    border-color: @base-border-color;
+    overflow: hidden;
+  }
+
+  .url-input {
+    margin-top: .1em;
+  }
+
   .spinner, .icon-spinner {
     -webkit-animation: rotation .6s infinite linear;
     -moz-animation: rotation .6s infinite linear;
@@ -99,8 +124,10 @@ atom-panel.modal:after {
     width: 8em;
     text-align: center;
     margin: 0.5em;
+    background: darken(@button-background-color, 50%);
+    // background: @base-background-color;
   }
-  button[disabled]:hover {
+  button[disabled], button[disabled]:hover {
     background-color: @button-background-color;
   }
   .url-span {
@@ -121,9 +148,7 @@ atom-panel.modal:after {
   }
   .input {
     // border-color: lighten(@base-border-color, 5%);
-    border-color: @base-border-color;
-    border-radius: @component-border-radius*1.8;
-    overflow: hidden;
+
   }
   .align-right {
     text-align: right;
