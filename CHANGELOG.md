@@ -2,6 +2,13 @@
 
 ## Changelog
 
+### 0.2.4 - *2016-05-09*
+
+*   Fixed some styling bugs if using seti ui theme
+
+*   Added ability to use custom tables for table and fieldName via
+    `config/tableConfig.user.cson`
+
 ### 0.2.3 - *2016-04-27*
 
 *   Fixed error in "Get Info" function in configure panel when no description
