@@ -67,11 +67,18 @@ module.exports = utils =
           thisDir = __dirname
           pattern = 'lib/modules$'
           tableConfigFile = thisDir.replace(new RegExp(pattern),'config/tableConfig.cson')
+          tableConfigUserFile = thisDir.replace(new RegExp(pattern),'config/tableConfig.user.cson')
+          fs.writeFileSync tableConfigUserFile, '' if not fs.existsSync tableConfigUserFile
+
+          userOut = null
           out = null
 
           out = CSON.readFileSync tableConfigFile
+          userOut = CSON.readFileSync tableConfigUserFile
 
-          out
+          combined = Object.assign out, userOut
+
+          combined
 
         updateFieldSelect: (table, caller) ->
           caller.snSettings.table = table
