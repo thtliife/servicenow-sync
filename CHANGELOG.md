@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 0.2.5 - *2016-05-09*
+
+*   Fixed some further styling bugs if using seti ui theme
+
 ### 0.2.4 - *2016-05-09*
 
 *   Fixed some styling bugs if using seti ui theme
