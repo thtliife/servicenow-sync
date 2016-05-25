@@ -67,7 +67,7 @@ module.exports = utils =
           thisDir = __dirname
           pattern = 'lib/modules$'
           tableConfigFile = thisDir.replace(new RegExp(pattern),'config/tableConfig.cson')
-          tableConfigUserFile = thisDir.replace(new RegExp(pattern),'config/tableConfig.user.cson')
+          tableConfigUserFile = thisDir.replace(new RegExp(pattern),'config/tableConfig.user.cson').replace('\\', '/')
           fs.writeFileSync tableConfigUserFile, '' if not fs.existsSync tableConfigUserFile
 
           userOut = null
