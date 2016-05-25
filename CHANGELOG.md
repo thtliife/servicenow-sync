@@ -2,6 +2,11 @@
 
 ## Changelog
 
+### 0.2.6 - *2016-05-25*
+
+*   Fixed deprecated selectors for editor and mini-editor
+*   Fixed creation of tableConfig.user.cson file on windows 7
+
 ### 0.2.5 - *2016-05-09*
 
 *   Fixed some further styling bugs if using seti ui theme
