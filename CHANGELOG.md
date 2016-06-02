@@ -2,6 +2,11 @@
 
 ## Changelog
 
+### 0.2.7 - *2016-06-03*
+
+*   Fixed bug where url-encoded ampersand (%26) broke pasted url in file
+    settings for sys_id
+
 ### 0.2.6 - *2016-05-25*
 
 *   Fixed deprecated selectors for editor and mini-editor
