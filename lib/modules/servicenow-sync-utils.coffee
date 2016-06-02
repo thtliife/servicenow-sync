@@ -117,7 +117,7 @@ module.exports = utils =
             out.table = uri.split('://')[1]?.replace('/nav_to.do?uri=','/').split('service-now.com/')[1]?.split('.')[0] or null
             out.table = null if !caller.servicenowSyncSettingsPanel.tableConfig[out.table]
 
-            out.sysId = uri.split('://')[1]?.split('sys_id=')[1]?.split('&')[0] or null
+            out.sysId = uri.split('://')[1]?.split('sys_id=')[1]?.split(/&|%26/)[0] or null
 
           out
 
