@@ -65,9 +65,14 @@ module.exports = utils =
           fs = require 'fs'
 
           thisDir = __dirname
-          pattern = 'lib/modules$'
-          tableConfigFile = thisDir.replace(new RegExp(pattern),'config/tableConfig.cson')
-          tableConfigUserFile = thisDir.replace(new RegExp(pattern),'config/tableConfig.user.cson').replace('\\', '/')
+          if process.platform == 'win32'
+            pattern = 'lib\\\\modules$'
+            tableConfigFile = thisDir.replace(new RegExp(pattern),'config\\tableConfig.cson')
+            tableConfigUserFile = thisDir.replace(new RegExp(pattern),'config\\tableConfig.user.cson').replace('\\', '/')
+          else
+            pattern = 'lib/modules$'
+            tableConfigFile = thisDir.replace(new RegExp(pattern),'config/tableConfig.cson')
+            tableConfigUserFile = thisDir.replace(new RegExp(pattern),'config/tableConfig.user.cson').replace('\\', '/')
           fs.writeFileSync tableConfigUserFile, '' if not fs.existsSync tableConfigUserFile
 
           userOut = null
@@ -306,26 +311,36 @@ module.exports = utils =
 
     getEnv: (envVar, callback) ->
       ChildProcess = require 'child_process'
-
-      child = ChildProcess.spawn process.env.SHELL, ['-ilc', 'printenv'],
-        # This is essential for interactive shells, otherwise it never finishes:
-        detached: true,
-        # We don't care about stdin, stderr can go out the usual way:
-        stdio: ['ignore', 'pipe', process.stderr]
-
-      # We buffer stdout:
-      buffer = ''
-      child.stdout.on 'data', (data) -> buffer += data
-      out = null
-      # When the process finishes, extract the environment variables and pass them to the callback:
-      child.on 'close', (code, signal) ->
-        for definition in buffer.split('\n')
-          [key, value] = definition.split('=', 2)
+      if process.platform == 'win32'
+        envVars = process.env
+        for definition of envVars
+          key = definition
+          value = envVars[definition]
           if key == envVar
             out = {key: key, value: value}
 
         if out == null
           out = {unset: envVar}
+      else
+        child = ChildProcess.spawn process.env.SHELL, ['-ilc', 'printenv'],
+          # This is essential for interactive shells, otherwise it never finishes:
+          detached: true,
+          # We don't care about stdin, stderr can go out the usual way:
+          stdio: ['ignore', 'pipe', process.stderr]
+
+        # We buffer stdout:
+        buffer = ''
+        child.stdout.on 'data', (data) -> buffer += data
+        out = null
+        # When the process finishes, extract the environment variables and pass them to the callback:
+        child.on 'close', (code, signal) ->
+          for definition in buffer.split('\n')
+            [key, value] = definition.split('=', 2)
+            if key == envVar
+              out = {key: key, value: value}
+
+          if out == null
+            out = {unset: envVar}
 
         callback(out)
 

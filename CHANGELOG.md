@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 0.2.8 - *2016-06-21*
+
+*   Fixed a bug which caused errors activating the plugin on Windows ([Issue #1](https://github.com/thtliife/servicenow-sync/issues/1))
+
 ### 0.2.7 - *2016-06-03*
 
 *   Fixed bug where url-encoded ampersand (%26) broke pasted url in file
