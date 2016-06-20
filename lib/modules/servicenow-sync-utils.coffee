@@ -310,7 +310,6 @@ module.exports = utils =
   actions:
 
     getEnv: (envVar, callback) ->
-      ChildProcess = require 'child_process'
       if process.platform == 'win32'
         envVars = process.env
         for definition of envVars
@@ -319,9 +318,10 @@ module.exports = utils =
           if key == envVar
             out = {key: key, value: value}
 
-        if out == null
-          out = {unset: envVar}
+        out = {unset: envVar} if !out
+        callback(out)
       else
+        ChildProcess = require 'child_process'
         child = ChildProcess.spawn process.env.SHELL, ['-ilc', 'printenv'],
           # This is essential for interactive shells, otherwise it never finishes:
           detached: true,
@@ -335,14 +335,15 @@ module.exports = utils =
         # When the process finishes, extract the environment variables and pass them to the callback:
         child.on 'close', (code, signal) ->
           for definition in buffer.split('\n')
-            [key, value] = definition.split('=', 2)
-            if key == envVar
-              out = {key: key, value: value}
+            if definition
+              [key, value] = definition.split('=', 2)
+              console.debug key + ' | ' + value
+              if key == envVar
+                out = {key: key, value: value}
 
-          if out == null
-            out = {unset: envVar}
+          out = {unset: envVar} if !out
 
-        callback(out)
+          callback(out)
 
     configureEnvironment: (environmentVars = ['http_proxy', 'https_proxy', 'HTTP_PROXY', 'HTTPS_PROXY', 'npm_config_proxy','npm_config_https_proxy','no_proxy','NO_PROXY','all_proxy','ALL_PROXY'], callback)->
       # Here is how we deal with proxy env vars...

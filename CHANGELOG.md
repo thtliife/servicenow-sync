@@ -2,6 +2,11 @@
 
 ## Changelog
 
+### 0.2.9 - *2016-06-21*
+
+*   Fixed a bug introduced by a bad check for null instead of null or undefined
+on v0.2.8
+
 ### 0.2.8 - *2016-06-21*
 
 *   Fixed a bug which caused errors activating the plugin on Windows ([Issue #1](https://github.com/thtliife/servicenow-sync/issues/1))
