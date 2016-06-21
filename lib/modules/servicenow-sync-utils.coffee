@@ -342,7 +342,6 @@ module.exports = utils =
                 out = {key: key, value: value}
 
           out = {unset: envVar} if !out
-
           callback(out)
 
     configureEnvironment: (environmentVars = ['http_proxy', 'https_proxy', 'HTTP_PROXY', 'HTTPS_PROXY', 'npm_config_proxy','npm_config_https_proxy','no_proxy','NO_PROXY','all_proxy','ALL_PROXY'], callback)->
