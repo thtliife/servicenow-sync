@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 0.3.0 - *2016-06-21*
+
+*   Removed superfluous logging when debug mode not enabled
+
 ### 0.2.9 - *2016-06-21*
 
 *   Fixed a bug introduced by a bad check for null instead of null or undefined

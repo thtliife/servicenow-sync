@@ -337,7 +337,7 @@ module.exports = utils =
           for definition in buffer.split('\n')
             if definition
               [key, value] = definition.split('=', 2)
-              console.debug key + ' | ' + value
+              utils.logger.debug key + ' | ' + value
               if key == envVar
                 out = {key: key, value: value}
 
