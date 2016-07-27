@@ -2,7 +2,7 @@
 
 ## Changelog
 
-### 0.3.0 - *2016-06-21*
+### 0.2.10 - *2016-06-21*
 
 *   Removed superfluous logging when debug mode not enabled
 
