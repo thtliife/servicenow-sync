@@ -2,6 +2,11 @@
 
 ## Changelog
 
+### 0.2.12 - *2016-08-15*
+
+*   Fixed [an issue](https://github.com/thtliife/servicenow-sync/issues/3) which
+caused tables with multiple fields for storing scripts to be saved incorrectly.
+
 ### 0.2.11 - *2016-07-29*
 
 *   Updated dependency `request` to resolve vulnerability noted [at snyk](https://snyk.io/vuln/npm:tough-cookie:20160722)

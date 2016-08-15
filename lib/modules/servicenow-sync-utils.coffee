@@ -20,9 +20,7 @@ module.exports = utils =
 
           fileSettings = utils.actions.getFileSettings(caller)
           caller.snSettings = fileSettings
-          # TODO: Remove the following log line
-          utils.logger.info '[Servicenow Sync] Settings for currently active file:'
-          utils.logger.debug caller.snSettings if caller.snSettings
+
           if fileSettings == 401
             return
           caller.settingsPanel.show caller
@@ -30,9 +28,11 @@ module.exports = utils =
 
           utils.logger.debug '[Servicenow Sync] Created settingsPanel commands'
           caller.servicenowSyncSettingsPanel.instanceInputModel.setText fileSettings?.instance if fileSettings?.instance
+
           if fileSettings?.table
-            caller.servicenowSyncSettingsPanel.tableNameSelect.value = fileSettings?.table if fileSettings?.table
-            utils.views.settingsPanel.actions.updateFieldSelect caller.servicenowSyncSettingsPanel.tableNameSelect.value, caller
+            caller.servicenowSyncSettingsPanel.tableNameSelect.value = fileSettings.table
+            utils.views.settingsPanel.actions.updateFieldSelect caller.servicenowSyncSettingsPanel.tableNameSelect.value, caller, true
+
           caller.servicenowSyncSettingsPanel.targetFieldSelect.value = fileSettings?.field if fileSettings?.field
           caller.servicenowSyncSettingsPanel.sysIdInputModel.setText fileSettings?.sysId if fileSettings?.sysId
           caller.servicenowSyncSettingsPanel.recordNameInputModel.setText fileSettings?.name if fileSettings?.name
@@ -85,7 +85,8 @@ module.exports = utils =
 
           combined
 
-        updateFieldSelect: (table, caller) ->
+        updateFieldSelect: (table, caller, init) ->
+          init = false if !init;
           caller.snSettings.table = table
           callerPanel = caller.servicenowSyncSettingsPanel
           availableTargetFields = callerPanel.tableConfig[table]
@@ -101,6 +102,7 @@ module.exports = utils =
                 option.text = txt
                 option.value = val
                 slct.appendChild(option)) targetField.field, targetField.displayName, selectElement for targetField in availableTargetFields
+              selectElement.value = caller.snSettings.field if init
               caller.snSettings.field = selectElement.value
           else
             selectElement.removeChild(selectElement.firstChild) while selectElement.firstChild
@@ -405,7 +407,6 @@ module.exports = utils =
       if !thisFilePath
         return 401
 
-
       syncFile = thisFilePath + postFix
       requireFile = thisFilePath + postFix
       out =
@@ -421,7 +422,6 @@ module.exports = utils =
         checksum: ''
         syncEnabled: true
       out = CSON.readFileSync(syncFile) if utils.actions.syncFileExists()
-
       out
 
     getFilePath: ->

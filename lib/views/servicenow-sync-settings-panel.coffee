@@ -4,7 +4,6 @@ utils = require '../modules/servicenow-sync-utils'
 module.exports =
 class ServicenowSyncSettingsPanel
   constructor: (serializedState, parent) ->
-    # region required vars
     @urlInputModel = null
     @instanceInputModel = null
     @tableNameInputModel = null
@@ -16,37 +15,22 @@ class ServicenowSyncSettingsPanel
     @passwordInputModel = null
     @data = @urlInputModel
     @tableConfig = utils.views.settingsPanel.actions.getavailableFields()
-    # endregion required vars
-
-    # region required functions
     @focusThis = -> urlInput.focus()
 
-
-    # endregion required functions
-
-
-    # region build the modal dialog
-
-    # region modal setup
     # Create root element
     @element = document.createElement('div')
-
     @element.classList.add('servicenow-sync')
 
     # Create the main form element
     form = document.createElement('div', 'controls')
     @element.appendChild(form)
-    # endregion modal setup
 
-    # region modal title
     # Create the title
     title = document.createElement('h2')
     title.classList.add('centered')
     title.textContent = 'Configure this file for Service Now Sync'
     form.appendChild(title)
-    # endregion modal title
 
-    # region url input
     # Create the div for the url input
     urlDiv = document.createElement('div')
     urlDiv.classList.add('control-group', 'url-div')
@@ -59,6 +43,7 @@ class ServicenowSyncSettingsPanel
     urlLabel.setAttribute('for','url-input')
     urlDiv.appendChild(urlLabel)
 
+    # Create the span to hold the url input
     urlSpan = document.createElement('span')
     urlSpan.classList.add('url-span')
     urlDiv.appendChild(urlSpan)
@@ -74,33 +59,26 @@ class ServicenowSyncSettingsPanel
     @urlInputModel = urlInput.getModel()
     urlSpan.appendChild(urlInput)
 
-
-
+    # Create the get info button
     @getButton = document.createElement('button')
     @getButton.classList.add('form-control','btn','btn-get','icon','icon-arrow-down')
     @getButton.addEventListener 'click', -> utils.views.settingsPanel.ui.buttons.get.click parent
     @getButton.setAttribute('tabindex', '2')
     @getButton.setAttribute('disabled', 'true')
-    # @getButton.textContent = 'Get Info'
     urlSpan.appendChild(@getButton)
+
+    # Create the spinner for the get info button
     @getSpinner = document.createElement('span')
     @getButtonText = document.createElement('span')
     @getButtonText.textContent = 'Get Info'
     @getButton.appendChild(@getSpinner)
     @getButton.appendChild(@getButtonText)
 
-    # endregion url input
-
-    # region info pane
-
-    # region create info pane
     # Create the info pane
     infoPanel = document.createElement('div')
     infoPanel.classList.add('info-panel','section-body')
     form.appendChild(infoPanel)
-    # endregioncreate info pane
 
-    # region info pane title and description
     # Create the info pane title
     infoTitle = document.createElement('h3')
     infoTitle.textContent = 'Field Mapping Info'
@@ -113,13 +91,12 @@ class ServicenowSyncSettingsPanel
     infoDescription.classList.add('info-panel-description')
     infoPanel.appendChild(infoDescription)
 
+    # Create the info pane description warning about the disabled buttons
     infoDescriptionWarning = document.createElement('em')
     infoDescriptionWarning.textContent = '(The ok button, and the enter key will remain disabled until all required fields are populated).'
     infoDescription.appendChild(document.createElement('br'))
     infoDescription.appendChild(infoDescriptionWarning)
-    # endregion info pane title and description
 
-    # region sn instance
     # Create the instance info div
     instanceDiv = document.createElement('div')
     instanceDiv.classList.add('info-div','control-group')
@@ -151,9 +128,7 @@ class ServicenowSyncSettingsPanel
     @instanceInput.setAttribute('placeholder-text', 'Instance Name...')
     @instanceInputModel = @instanceInput.getModel()
     instanceSpan.appendChild(@instanceInput)
-    # endregion sn instance
 
-    # region table name
     # Create the table info div
     tableNameDiv = document.createElement('div')
     tableNameDiv.classList.add('info-div','control-group')
@@ -179,7 +154,6 @@ class ServicenowSyncSettingsPanel
     @tableNameSelect = document.createElement('select')
     @tableNameSelect.classList.add('form-control','table-name-select')
     @tableNameSelect.setAttribute('id', 'table-name-info')
-    # tableNameSelect.setAttribute('disabled', 'true')
     @tableNameSelect.setAttribute('tabindex', '4')
     tableNameSpan.appendChild(@tableNameSelect)
 
@@ -196,19 +170,6 @@ class ServicenowSyncSettingsPanel
       option.textContent = table
       @tableNameSelect.appendChild(option)
 
-    # # Create the table name info field
-    # tableNameInput = document.createElement('atom-text-editor')
-    # tableNameInput.classList.add('input', 'table-name-input','full-width')
-    # tableNameInput.setAttribute('id', 'table-name-info')
-    # tableNameInput.setAttribute('type', 'text')
-    # tableNameInput.setAttribute('mini', 'true')
-    # tableNameInput.setAttribute('placeholder-text', 'Table Name...')
-    # tableNameInput.setAttribute('tabindex', '4')
-    # @tableNameInputModel = tableNameInput.getModel()
-    # tableNameSpan.appendChild(tableNameInput)
-    # endregion table name
-
-    # region target
     # Create the field info div
     targetDiv = document.createElement('div')
     targetDiv.classList.add('info-div','control-group')
@@ -234,22 +195,9 @@ class ServicenowSyncSettingsPanel
     @targetFieldSelect = document.createElement('select')
     @targetFieldSelect.classList.add('form-control')
     @targetFieldSelect.setAttribute('id', 'target-field')
-    # @targetFieldSelect.setAttribute('disabled', 'true')
     @targetFieldSelect.setAttribute('tabindex', '5')
     targetSpan.appendChild(@targetFieldSelect)
 
-    # # Create the target info field
-    # targetInput = document.createElement('atom-text-editor')
-    # targetInput.classList.add('input', 'target-input','full-width')
-    # targetInput.setAttribute('id', 'target-input')
-    # targetInput.setAttribute('type', 'text')
-    # targetInput.setAttribute('mini', 'true')
-    # targetInput.setAttribute('placeholder-text', 'Field...')
-    # @targetInputModel = targetInput.getModel()
-    # targetSpan.appendChild(targetInput)
-    # endregion target
-
-    # region sys id
     # Create the sys id info div
     sysIdDiv = document.createElement('div')
     sysIdDiv.classList.add('info-div','control-group')
@@ -281,9 +229,7 @@ class ServicenowSyncSettingsPanel
     sysIdInput.setAttribute('placeholder-text', 'Sys ID...')
     @sysIdInputModel = sysIdInput.getModel()
     sysIdSpan.appendChild(sysIdInput)
-    # endregion sys id
 
-    # region Record Name
     # Create the record name info div
     recordNameDiv = document.createElement('div')
     recordNameDiv.classList.add('info-div','control-group')
@@ -315,9 +261,7 @@ class ServicenowSyncSettingsPanel
     recordNameInput.setAttribute('placeholder-text', 'Record Name...')
     @recordNameInputModel = recordNameInput.getModel()
     recordNameSpan.appendChild(recordNameInput)
-    # endregion Record Name
 
-    # region Record Description
     # Create the record description info div
     recordDescriptionDiv = document.createElement('div')
     recordDescriptionDiv.classList.add('info-div','control-group')
@@ -349,9 +293,7 @@ class ServicenowSyncSettingsPanel
     recordDescriptionInput.setAttribute('placeholder-text', 'Record Description...')
     @recordDescriptionInputModel = recordDescriptionInput.getModel()
     recordDescriptionSpan.appendChild(recordDescriptionInput)
-    # endregion Record Description
 
-    # region Sync enabled checkbox
     # Create the sync enabled info div
     syncEnabledDiv = document.createElement('div')
     syncEnabledDiv.classList.add('info-div','control-group')
@@ -380,22 +322,11 @@ class ServicenowSyncSettingsPanel
     @syncEnabledInput.setAttribute('type', 'checkbox')
     @syncEnabledInput.setAttribute('checked', 'true')
     @syncEnabledInput.setAttribute('tabindex', '9')
-    # @recordDescriptionInputModel = @syncEnabledInput.getModel()
     syncEnabledSpan.appendChild(@syncEnabledInput)
 
-    # endregion Sync enabled checkbox
-
-    # endregion info pane
-
-    # region creds pane
-
-    # region create the creds pane
     credsPanel = document.createElement('div')
     credsPanel.classList.add('creds-panel','section-body')
     form.appendChild(credsPanel)
-    # endregion create the creds pane
-
-    # region creds pane title and description
     credsTitle = document.createElement('h3')
     credsTitle.textContent = 'Service Now Credentials'
     credsTitle.classList.add('creds-panel-title')
@@ -409,9 +340,7 @@ class ServicenowSyncSettingsPanel
     credsDescription.appendChild(document.createElement('br'))
     credsDescription.appendChild(credsDescriptionWarning)
     credsPanel.appendChild(credsDescription)
-    # endregion creds pane title and description
 
-    # region Username
     # Create the username div
     usernameDiv = document.createElement('div')
     usernameDiv.classList.add('info-div','control-group')
@@ -443,9 +372,7 @@ class ServicenowSyncSettingsPanel
     usernameInput.setAttribute('placeholder-text', 'Your service now username...')
     @usernameInputModel = usernameInput.getModel()
     usernameSpan.appendChild(usernameInput)
-    # endregion Username
 
-    # region password
     # Create the password div
     passwordDiv = document.createElement('div')
     passwordDiv.classList.add('info-div','control-group')
@@ -477,20 +404,18 @@ class ServicenowSyncSettingsPanel
     @passwordInput.setAttribute('placeholder-text', 'Your service now password...')
     @passwordInputModel = @passwordInput.getModel()
     passwordSpan.appendChild(@passwordInput)
-    # endregion password
 
-    # endregion creds pane
-
-    # region buttons
     # Create the button div
     buttonsDiv = document.createElement('div')
     buttonsDiv.classList.add('buttons-div','control-group')
     form.appendChild(buttonsDiv)
 
+    # Create the button control div
     buttonsControlDiv = document.createElement('div')
     buttonsControlDiv.classList.add('buttons-div','controls','align-right')
     buttonsDiv.appendChild(buttonsControlDiv)
 
+    # Create the pull button
     @pullButton = document.createElement('button')
     @pullButton.classList.add('form-control','btn','btn-pull','icon','icon-cloud-download')
     @pullButton.addEventListener 'click', -> utils.views.settingsPanel.ui.buttons.pull.click parent
@@ -499,6 +424,7 @@ class ServicenowSyncSettingsPanel
     @pullButton.textContent = 'Retrieve'
     buttonsControlDiv.appendChild(@pullButton)
 
+    # Create the OK button
     @okButton = document.createElement('button')
     @okButton.classList.add('form-control','btn','btn-ok','icon','icon-check')
     @okButton.addEventListener 'click', -> utils.views.settingsPanel.ui.buttons.ok.click parent
@@ -507,18 +433,15 @@ class ServicenowSyncSettingsPanel
     @okButton.textContent = 'OK'
     buttonsControlDiv.appendChild(@okButton)
 
+    # Create the cancel button
     cancelButton = document.createElement('button')
     cancelButton.classList.add('form-control','btn','btn-cancel','icon','icon-circle-slash')
     cancelButton.textContent = 'Cancel'
     cancelButton.setAttribute('tabindex', '14')
     cancelButton.addEventListener 'click', -> utils.views.settingsPanel.ui.buttons.cancel.click parent
     buttonsControlDiv.appendChild(cancelButton)
-    # endregion buttons
 
-    # endregion build the modal dialog
-
-    # region event handlers
-
+    # Wire up actions for form fields and controls
     @urlInputModel.onDidChange( ->
       utils.views.settingsPanel.actions.updateElements parent
     )
@@ -558,8 +481,6 @@ class ServicenowSyncSettingsPanel
     @passwordInputModel.onDidChange( ->
       utils.views.settingsPanel.actions.handlePassword parent
     )
-
-    # endregion event handlers
 
   # Returns an object that can be retrieved when package is activated
   serialize: ->

@@ -65,3 +65,5 @@ jspm_packages
 
 # User config files
 config/*.user.cson
+
+test/
