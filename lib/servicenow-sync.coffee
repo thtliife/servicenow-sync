@@ -4,7 +4,8 @@ utils = require './modules/servicenow-sync-utils'
 
 {CompositeDisposable} = require 'atom'
 
-userLanguage = ->
+# update this once localization module is done.
+userLanguage = (lang = 'en_US')->
   if lang.hasOwnProperty( process.env.LANG.split('.')[0] )
     process.env.LANG.split('.')[0]
   else
