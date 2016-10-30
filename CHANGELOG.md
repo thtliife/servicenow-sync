@@ -2,6 +2,11 @@
 
 ## Changelog
 
+### 0.2.13 - *2016-10-31*
+
+*   Fixed some variable styles to ensure compatibility with coffeescript v1.11.0
+(new coffeescript version for atom v1.12)
+
 ### 0.2.12 - *2016-08-15*
 
 *   Fixed [an issue](https://github.com/thtliife/servicenow-sync/issues/3) which
