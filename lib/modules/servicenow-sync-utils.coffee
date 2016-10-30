@@ -24,7 +24,7 @@ module.exports = utils =
           if fileSettings == 401
             return
           caller.settingsPanel.show caller
-          caller.settingsPanelSubs.add atom.commands.add 'atom-workspace', 'core:cancel': => utils.views.settingsPanel.hide caller
+          caller.settingsPanelSubs.add atom.commands.add 'atom-workspace', 'core:cancel': -> utils.views.settingsPanel.hide caller
 
           utils.logger.debug '[Servicenow Sync] Created settingsPanel commands'
           caller.servicenowSyncSettingsPanel.instanceInputModel.setText fileSettings?.instance if fileSettings?.instance
@@ -86,7 +86,7 @@ module.exports = utils =
           combined
 
         updateFieldSelect: (table, caller, init) ->
-          init = false if !init;
+          init = false if !init
           caller.snSettings.table = table
           callerPanel = caller.servicenowSyncSettingsPanel
           availableTargetFields = callerPanel.tableConfig[table]
@@ -208,9 +208,9 @@ module.exports = utils =
           ]
 
           for condition in conditions
-          	do (condition) ->
-            	if condition == false
-              	shouldEnable = false
+            do (condition) ->
+              if condition == false
+                shouldEnable = false
 
           if shouldEnable
             caller.servicenowSyncSettingsPanel.okButton.removeAttribute('disabled')
@@ -698,10 +698,10 @@ module.exports = utils =
       caller.onSaveSubs.add atom.workspace.observeTextEditors (editor) ->
         @editorSubs = new CompositeDisposable
         caller.onSaveSubs.add @editorSubs
-        editorSubs.add editor.onDidSave ->
+        @editorSubs.add editor.onDidSave ->
           if atom.config.get('servicenow-sync').pushOnSave and utils.actions.syncFileExists()
             caller.sync(true)
-        editorSubs.add editor.onDidDestroy ->
+        @editorSubs.add editor.onDidDestroy ->
           @editorSubs.dispose()
           @editorSubs.clear()
 
