@@ -43,3 +43,18 @@ sys_script_validator: [
 sys_processor: [
   { field: 'script', displayName: 'Script' }
 ]
+sp_widget: [
+  {field: 'template', displayName: 'Body HTML Template'}
+  {field: 'css', displayName: 'CSS'}
+  {field: 'script', displayName: 'Server Script'}
+  {field: 'client_script', displayName: 'Client Controller'}
+]
+sp_page: [
+  {field: 'css', displayName: 'Page Specific CSS'}
+]
+sp_css: [
+  {field: 'css', displayName: 'CSS'}
+]
+sp_angular_provider: [
+  {field: 'script',displayName: 'Client Script'}
+]
