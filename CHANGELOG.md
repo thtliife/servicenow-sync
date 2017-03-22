@@ -2,6 +2,11 @@
 
 ## Changelog
 
+### 0.2.14 - *2017-04-22*
+
+*   Add support for table and field in the Service Portal Widget, Page, CSS and
+angular providers (thanks [vr-fox](https://github.com/vr-fox))
+
 ### 0.2.13 - *2016-10-31*
 
 *   Fixed some variable styles to ensure compatibility with coffeescript v1.11.0

@@ -1,7 +1,7 @@
 {
   "name": "servicenow-sync",
   "main": "./lib/servicenow-sync",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "description": "Atom integration with ServiceNow (Eureka & above)",
   "keywords": [
     "servicenow",

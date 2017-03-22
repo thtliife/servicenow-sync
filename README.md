@@ -7,7 +7,7 @@
 [![Wercker](https://img.shields.io/wercker/ci/wercker/docs.svg?maxAge=2592000)](https://github.com/thtliife/servicenow-sync)
 [![GitHub issues](https://img.shields.io/github/issues/thtliife/servicenow-sync.svg)](https://github.com/thtliife/servicenow-sync/issues)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/thtliife/servicenow-sync/master/LICENSE.md)
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/thtliife/servicenow-sync.svg?style=social)](https://twitter.com/intent/tweet?text=Check out @thtliife%27s servicenow-sync package, for %23servicenow and githubs awesome %23atom text editor!:&url=https%3A%2F%2Fatom.io%2Fpackages%2Fservicenow-sync)
+[![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Check out @thtliife%27s servicenow-sync package, for %23servicenow and githubs awesome %23atom text editor!:&url=https%3A%2F%2Fatom.io%2Fpackages%2Fservicenow-sync)
 
 Servicenow Sync is a package primarily for ServiceNow developers.
 Servicenow Sync enables direct uploading of files to your ServiceNow instance.
