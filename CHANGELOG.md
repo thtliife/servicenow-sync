@@ -2,7 +2,7 @@
 
 ## Changelog
 
-### 0.2.14 - *2017-04-22*
+### 0.2.16 - *2017-04-22*
 
 *   Add support for table and field in the Service Portal Widget, Page, CSS and
 angular providers (thanks [vr-fox](https://github.com/vr-fox))
