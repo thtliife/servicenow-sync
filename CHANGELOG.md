@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 0.2.17 - *2017-04-22*
+
+*   Fixed changelog to keep versions inline
+
 ### 0.2.16 - *2017-04-22*
 
 *   Add support for table and field in the Service Portal Widget, Page, CSS and
