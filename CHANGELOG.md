@@ -1,6 +1,6 @@
-# Servicenow Sync
 
-## Changelog
+___
+##  Historical changes
 
 ### 0.2.17 - *2017-04-22*
 
