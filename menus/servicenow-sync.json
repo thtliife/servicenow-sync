@@ -1,0 +1,26 @@
+{
+  "context-menu": {
+    "atom-text-editor": [
+      {
+        "label": "Toggle servicenow-sync",
+        "command": "servicenow-sync:toggle"
+      }
+    ]
+  },
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "servicenow-sync",
+          "submenu": [
+            {
+              "label": "Toggle",
+              "command": "servicenow-sync:toggle"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
