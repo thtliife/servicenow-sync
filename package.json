@@ -49,7 +49,9 @@
           "API",
           "Event",
           "Config",
-          "Docs"
+          "Docs",
+          "Utility",
+          "Package"
         ],
         "validate": true,
         "multiple": true
